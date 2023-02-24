@@ -1,7 +1,8 @@
 # 결론
 - lock 을 걸자
 <img width="312" alt="image" src="https://user-images.githubusercontent.com/31065684/221095686-81a8709c-62ce-4a9a-8598-8f57217f2e8a.png">
-
+- 설명 : 2개의 프로세스에서 10000번 요청 날릴때
+  - 베이스라인, 리피터블 리드는 정합성 꺠짐
 
 ## 테스트돌리기
 
