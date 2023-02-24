@@ -1,3 +1,9 @@
+# 결론
+- lock 을 걸자
+<img width="312" alt="image" src="https://user-images.githubusercontent.com/31065684/221095686-81a8709c-62ce-4a9a-8598-8f57217f2e8a.png">
+
+
+
 ## 베이스라인 코드 
 ```shell
 # ab -n 15000 -c 1 -p data.json -T 'application/json' 'http://localhost:8080/post/1'
