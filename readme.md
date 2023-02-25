@@ -140,6 +140,25 @@ Requests per second:    784.39 [#/sec] (mean)
 
 ```
 
+
+### 2/25 토요일 내생각
+- 데이터 정합성 안맞는 이유는 데드락때문에 요청이 실패한거임 : mysql 쓰레드풀 200, 스프링 히카리갯수 200개라서 데드락이 걸림
+```
+com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+```
+- 해결책 =
+
+
+
+
+
+
+
+
+
+<br><br><br><br><br>
+
+
 ## 베이스라인 코드 
 ```shell
 # ab -n 15000 -c 1 -p data.json -T 'application/json' 'http://localhost:8080/post/1'
