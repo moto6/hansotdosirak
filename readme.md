@@ -17,11 +17,32 @@ ab -n 10000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/
 
 
 ```shell
-ab -n 5000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/1' && sleep 3 &&
-ab -n 5000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/v1/2' && sleep 3 &&
-ab -n 5000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/v2/3' && sleep 3 &&
-ab -n 5000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/v3/4'
+ab -n 5000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/1' && sleep 10 &&
+ab -n 5000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/v1/2' && sleep 10 &&
+ab -n 5000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/v2/3' && sleep 10 &&
+ab -n 5000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/v3/4' && sleep 10 &&
+ab -n 5000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/v4/5' 
 ```
+
+### with 웜업
+
+```shell
+
+ab -n 5000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/1' && sleep 10 &&
+ab -n 5000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/v1/2' && sleep 10 &&
+ab -n 5000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/v2/3' && sleep 10 &&
+ab -n 5000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/v3/4' && sleep 10 &&
+ab -n 5000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/v4/5' && sleep 10 &&
+
+ab -n 5000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/6' && sleep 10 &&
+ab -n 5000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/v1/7' && sleep 10 &&
+ab -n 5000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/v2/8' && sleep 10 &&
+ab -n 5000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/v3/9' && sleep 10 &&
+ab -n 5000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/v4/10' 
+```
+
+
+
 - 성능에 관하여
 ```
 1번 : Requests per second:    4411.54 [#/sec] (mean)

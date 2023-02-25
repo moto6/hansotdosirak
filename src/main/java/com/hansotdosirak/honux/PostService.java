@@ -13,10 +13,12 @@ public class PostService {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private final PostRepository postRepository;
     private final PostLockRepository postLockRepository;
+    private final PostJdbcRepository postJdbcRepository;
 
-    public PostService(PostRepository postRepository, PostLockRepository postLockRepository) {
+    public PostService(PostRepository postRepository, PostLockRepository postLockRepository, PostJdbcRepository postJdbcRepository) {
         this.postRepository = postRepository;
         this.postLockRepository = postLockRepository;
+        this.postJdbcRepository = postJdbcRepository;
     }
 
     @Transactional
@@ -42,6 +44,13 @@ public class PostService {
 
     @Transactional
     public void updateLikeCountV3Atomic(Long postId) {
-        postRepository.updateAtomic(postId);
+        //postRepository.updateAtomic(postId);
+        postJdbcRepository.update(postId);
+    }
+
+    //@Transactional
+    public void updateLikeCountV4NoTrans(Long postId) {
+        //postRepository.updateAtomic(postId);
+        postJdbcRepository.update(postId);
     }
 }

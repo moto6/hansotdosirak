@@ -39,4 +39,20 @@ public class PostController {
         return ResponseEntity.ok().build();
     }
 
+
+    @PostMapping("/v4/{postId}")
+    public ResponseEntity<?> updateLikeV4(@PathVariable Long postId) {
+        postService.updateLikeCountV4NoTrans(postId);
+        return ResponseEntity.ok().build();
+    }
+//
+//    @PostMapping("/v5/{postId}")
+//    public ResponseEntity<?> updateLikeV5(@PathVariable Long postId) {
+//        postService.updateLikeCountV4NoTrans(postId);
+//        return ResponseEntity.ok().build();
+//    }
+
+
+
+
 }
