@@ -33,4 +33,10 @@ public class PostController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/v3/{postId}")
+    public ResponseEntity<?> updateLikeV3(@PathVariable Long postId) {
+        postService.updateLikeCountV3Atomic(postId);
+        return ResponseEntity.ok().build();
+    }
+
 }

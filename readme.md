@@ -11,7 +11,8 @@
 ```shell
 ab -n 10000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/1' && sleep 3 &&
 ab -n 10000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/v1/2' && sleep 3 &&
-ab -n 10000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/v2/3'
+ab -n 10000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/v2/3' && sleep 3 &&
+ab -n 10000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/v3/4'
 ```
 
 

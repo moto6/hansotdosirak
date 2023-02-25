@@ -33,12 +33,15 @@ public class PostService {
         post.likeCountUp();
     }
 
-    @Transactional(isolation = Isolation.READ_COMMITTED)
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void updateLikeCountV2IsolationOnly(Long postId) {
         Optional<Post> byId = postRepository.findById(postId);
         Post post = byId.get();
         post.likeCountUp();
     }
 
-
+    @Transactional
+    public void updateLikeCountV3Atomic(Long postId) {
+        postRepository.updateAtomic(postId);
+    }
 }

@@ -23,6 +23,7 @@ public class PostPreloading {
             postRepository.save(new Post("hi", "베이스라인"));
             postRepository.save(new Post("hola", "락"));
             postRepository.save(new Post("aloha", "리피터블리드"));
+            postRepository.save(new Post("KKKK", "아토믹하게"));
         };
     }
 
