@@ -16,6 +16,24 @@ ab -n 10000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/
 ```
 
 
+```shell
+ab -n 5000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/1' && sleep 3 &&
+ab -n 5000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/v1/2' && sleep 3 &&
+ab -n 5000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/v2/3' && sleep 3 &&
+ab -n 5000 -c 2 -p data.json -T 'application/json' 'http://localhost:8080/post/v3/4'
+```
+- 성능에 관하여
+```
+1번 : Requests per second:    4411.54 [#/sec] (mean)
+
+2번 : Requests per second:    4757.34 [#/sec] (mean)
+
+3번 : Requests per second:    3883.90 [#/sec] (mean)
+
+4번 : Requests per second:    242.77 [#/sec] (mean)
+
+```
+
 
 ## 베이스라인 코드 
 ```shell
