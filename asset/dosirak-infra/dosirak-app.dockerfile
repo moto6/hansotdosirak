@@ -16,7 +16,6 @@ COPY src src
 
 RUN ./gradlew clean
 RUN ./gradlew -x test build
-EXPOSE 8080
-ARG JAR_FILE=build/libs/hansotdosirak-0.1.jar
+ARG JAR_FILE=./build/libs/dosirak-0.1.jar
 COPY ${JAR_FILE} app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]

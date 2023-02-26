@@ -1,41 +1,35 @@
 version: '3.7'
 services:
 
-  dosirak-app:
-    image: dosirak-app
-    ports:
-      - "18080:8080"
-    environment:
-      SPRING_PROFILES_ACTIVE: "dev"
-    build:
-      context: ../../
-      dockerfile: ./asset/dosirak-infra/dosirak-app.dockerfile
-    deploy:
-      resources:
-        limits:
-          cpus: '2.0'
-          memory: 2GB
-        reservations:
-          cpus: '2.0'
-          memory: 2GB
+#  # nginx
+#  dosirak-nginx:
+#    image: nginx:1.21.5-alpine
+#    container_name: dosirak-nginx
+#    ports:
+#      - "80:18080"
+#    volumes:
+#      - ./dosirak-nginx.conf:/etc/nginx/nginx.conf
+
 
   # mysql
-  open-library-mysql:
+  dosirak-mysql:
     image: mysql:8.0
+    container_name: dosirak-mysql
     platform: linux/arm64/v8
     command:
       - --default-authentication-plugin=mysql_native_password
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
     restart: always
-    container_name: dosirak-mysql
     environment:
       MYSQL_DATABASE: dosirak-mysql
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+      MYSQL_USER: tunamayo
+      MYSQL_PASSWORD: tunamayo
       TZ: Asia/Seoul
-      MYSQL_MAX_CONNECTIONS: 300
+      MYSQL_MAX_CONNECTIONS: 100
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - "23306:3306"
     deploy:
@@ -44,5 +38,77 @@ services:
           cpus: '2.0'
           memory: 1GB
         reservations:
-          cpus: '2.0'
+          cpus: '0.2'
           memory: 1GB
+
+  # app 1
+  dosirak-app-1:
+    image: dosirak-app
+    container_name: dosirak-app-1
+    ports:
+      - "18081:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: "test"
+      HOSTNAME: host.docker.internal
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    build:
+      context: ../../
+      dockerfile: ./asset/dosirak-infra/dosirak-app.dockerfile
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1GB
+        reservations:
+          cpus: '1.0'
+          memory: 1GB
+    depends_on:
+      - dosirak-mysql
+
+  # app 2
+  dosirak-app-2:
+    image: dosirak-app
+    container_name: dosirak-app-2
+    ports:
+      - "18082:8080"
+      - "16555:23306"
+    environment:
+      SPRING_PROFILES_ACTIVE: "test"
+    build:
+      context: ../../
+      dockerfile: ./asset/dosirak-infra/dosirak-app.dockerfile
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1GB
+        reservations:
+          cpus: '1.0'
+          memory: 1GB
+    depends_on:
+      - dosirak-mysql
+
+  # app 3
+  dosirak-app-3:
+    image: dosirak-app
+    container_name: dosirak-app-3
+    ports:
+      - "18083:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: "test"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    build:
+      context: ../../
+      dockerfile: ./asset/dosirak-infra/dosirak-app.dockerfile
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1GB
+        reservations:
+          cpus: '1.0'
+          memory: 1GB
+    depends_on:
+      - dosirak-mysql
