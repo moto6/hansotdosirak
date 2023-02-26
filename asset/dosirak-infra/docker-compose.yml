@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.8'
 services:
 
 #  # nginx
@@ -41,6 +41,15 @@ services:
         reservations:
           cpus: '0.2'
           memory: 1GB
+    healthcheck:
+      start_period: 5s
+      test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+      interval: 5s
+      timeout: 4s
+      retries: 200
+    #depends_on:
+      #dosirak-mysql:
+       # condition: service_healthy
 
   # app 1
   dosirak-app-1:
@@ -49,7 +58,7 @@ services:
     ports:
       - "18081:8080"
     environment:
-      SPRING_PROFILES_ACTIVE: "local"
+      SPRING_PROFILES_ACTIVE: "test"
       HOSTNAME: host.docker.internal
     extra_hosts:
       - "host.docker.internal:host-gateway"
@@ -65,7 +74,9 @@ services:
           cpus: '1.0'
           memory: 1GB
     depends_on:
-      - dosirak-mysql
+      dosirak-mysql:
+        condition: service_healthy
+
 
   # app 2
   dosirak-app-2:
@@ -73,31 +84,9 @@ services:
     container_name: dosirak-app-2
     ports:
       - "18082:8080"
-      - "16555:23306"
     environment:
       SPRING_PROFILES_ACTIVE: "test"
-    build:
-      context: ../../
-      dockerfile: ./asset/dosirak-infra/dosirak-app.dockerfile
-    deploy:
-      resources:
-        limits:
-          cpus: '1.0'
-          memory: 1GB
-        reservations:
-          cpus: '1.0'
-          memory: 1GB
-    depends_on:
-      - dosirak-mysql
-
-  # app 3
-  dosirak-app-3:
-    image: dosirak-app
-    container_name: dosirak-app-3
-    ports:
-      - "18083:8080"
-    environment:
-      SPRING_PROFILES_ACTIVE: "test"
+      HOSTNAME: host.docker.internal
     extra_hosts:
       - "host.docker.internal:host-gateway"
     build:
@@ -112,4 +101,31 @@ services:
           cpus: '1.0'
           memory: 1GB
     depends_on:
-      - dosirak-mysql
+      dosirak-mysql:
+        condition: service_healthy
+
+  # app 3
+  dosirak-app-3:
+    image: dosirak-app
+    container_name: dosirak-app-3
+    ports:
+      - "18083:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: "test"
+      HOSTNAME: host.docker.internal
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    build:
+      context: ../../
+      dockerfile: ./asset/dosirak-infra/dosirak-app.dockerfile
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1GB
+        reservations:
+          cpus: '1.0'
+          memory: 1GB
+    depends_on:
+      dosirak-mysql:
+        condition: service_healthy

@@ -1,30 +1,34 @@
 package com.hansotdosirak;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 
 import javax.annotation.PostConstruct;
+import java.util.Arrays;
+
 
 @SpringBootApplication
 //@PropertySource("classpath:application-${spring.profiles.active}.properties")
 @PropertySource("classpath:application-${spring.config.activate.on-profile}.properties")
 public class DosirakApplication {
+
+    private static final Logger log = LoggerFactory.getLogger("DosirakApplication");
+
     @Value("${spring.config.activate.on-profile}")
-    String curProfile;
+    String profile;
 
     @PostConstruct
     public void printConfigFileLocation() {
-        System.out.println(curProfile);
+        //System.getenv().values().stream().forEach(log::info);
+        log.info("profile=[{}]",profile);
     }
 
     public static void main(String[] args) {
-        System.out.println("Hello");
+        //log.info("args=[{}]",Arrays.toString(args));
         SpringApplication.run(DosirakApplication.class, args);
     }
 }

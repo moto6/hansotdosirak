@@ -8,6 +8,9 @@ docker-compose -f asset/dosirak-infra/docker-compose.yml up
 
 
 curl host.docker.internal:8080
+
+
+mysqladmin ping -h localhost:23306
 ```
 
 # 결론

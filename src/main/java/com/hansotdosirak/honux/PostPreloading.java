@@ -27,8 +27,6 @@ public class PostPreloading {
             postRepository.save(new Post("KKKK", "아토믹하게+트랜잭션"));
             postRepository.save(new Post("어거스트", "아토믹하게+NO 트랜"));
 
-
-
             postRepository.save(new Post("hi", "베이스라인"));
             postRepository.save(new Post("hola", "락"));
             postRepository.save(new Post("aloha", "리피터블리드"));
