@@ -27,7 +27,8 @@ services:
       MYSQL_USER: tunamayo
       MYSQL_PASSWORD: tunamayo
       TZ: Asia/Seoul
-      MYSQL_MAX_CONNECTIONS: 100
+      MYSQL_MAX_CONNECTIONS: 1000
+      MYSQL_SSL_MODE: DISABLED
     extra_hosts:
       - "host.docker.internal:host-gateway"
     ports:
@@ -48,7 +49,7 @@ services:
     ports:
       - "18081:8080"
     environment:
-      SPRING_PROFILES_ACTIVE: "test"
+      SPRING_PROFILES_ACTIVE: "local"
       HOSTNAME: host.docker.internal
     extra_hosts:
       - "host.docker.internal:host-gateway"

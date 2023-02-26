@@ -17,6 +17,7 @@ public class PostPreloading {
     static private final Logger log = LoggerFactory.getLogger("PostPreloading");
     @Autowired
     private PostRepository postRepository;
+
     @Bean
     public CommandLineRunner run(PostRepository postRepository) {
         return args -> {
