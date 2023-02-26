@@ -1,4 +1,17 @@
+# 아.. 왜안됨..
+```text
+docker build -t dosirak-app -f ./asset/dosirak-infra/dosirak-app.dockerfile .
+
+
+
+docker-compose -f asset/dosirak-infra/docker-compose.yml up
+
+
+curl host.docker.internal:8080
+```
+
 # 결론
+
 - lock 을 걸자
 <img width="312" alt="image" src="https://user-images.githubusercontent.com/31065684/221095686-81a8709c-62ce-4a9a-8598-8f57217f2e8a.png">
 - 설명 : 2개의 프로세스에서 10000번 요청 날릴때

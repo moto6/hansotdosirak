@@ -18,4 +18,5 @@ RUN ./gradlew clean
 RUN ./gradlew -x test build
 ARG JAR_FILE=./build/libs/dosirak-0.1.jar
 COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java", "-jar", "app.jar"]
+RUN export SPRING_PROFILES_ACTIVE=test
+ENTRYPOINT ["java", "-jar", "-Dspring.config.activate.on-profile=test","app.jar"]
