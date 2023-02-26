@@ -8,8 +8,8 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: "dev"
     build:
-      context: ../build
-      dockerfile: ./dosirak-app.dockerfile
+      context: ../../
+      dockerfile: ./asset/dosirak-infra/dosirak-app.dockerfile
     deploy:
       resources:
         limits:
