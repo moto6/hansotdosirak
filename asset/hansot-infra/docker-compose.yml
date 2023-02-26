@@ -1,0 +1,48 @@
+version: '3.7'
+services:
+
+  dosirak-app:
+    image: dosirak-app
+    ports:
+      - "18080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: "dev"
+    build:
+      context: ../build
+      dockerfile: ./dosirak-app.dockerfile
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2GB
+        reservations:
+          cpus: '2.0'
+          memory: 2GB
+
+  # mysql
+  open-library-mysql:
+    image: mysql:8.0
+    platform: linux/arm64/v8
+    command:
+      - --default-authentication-plugin=mysql_native_password
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    restart: always
+    container_name: dosirak-mysql
+    environment:
+      MYSQL_DATABASE: dosirak-mysql
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      TZ: Asia/Seoul
+      MYSQL_MAX_CONNECTIONS: 300
+    ports:
+      - "23306:3306"
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 1GB
+        reservations:
+          cpus: '2.0'
+          memory: 1GB
