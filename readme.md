@@ -11,6 +11,19 @@ curl host.docker.internal:8080
 
 
 mysqladmin ping -h localhost:23306
+
+
+docker-compose up --build 
+
+docker-compose build --no-cache
+```
+
+
+```shell
+ab -n 10000 -c 2 -p data.json -T 'application/json' 'http://localhost/post/1' && sleep 3 &&
+ab -n 10000 -c 2 -p data.json -T 'application/json' 'http://localhost/post/v1/2' && sleep 3 &&
+ab -n 10000 -c 2 -p data.json -T 'application/json' 'http://localhost/post/v2/3' && sleep 3 &&
+ab -n 10000 -c 2 -p data.json -T 'application/json' 'http://localhost/post/v3/4'
 ```
 
 # 결론
