@@ -1,4 +1,4 @@
-# 아.. 왜안됨..
+# 나중에 정리해야할 
 ```text
 docker build -t dosirak-app -f ./asset/dosirak-infra/dosirak-app.dockerfile .
 
