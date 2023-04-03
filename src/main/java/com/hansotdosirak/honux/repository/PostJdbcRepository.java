@@ -1,4 +1,4 @@
-package com.hansotdosirak.honux;
+package com.hansotdosirak.honux.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;

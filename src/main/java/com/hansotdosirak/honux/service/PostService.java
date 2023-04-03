@@ -1,5 +1,9 @@
-package com.hansotdosirak.honux;
+package com.hansotdosirak.honux.service;
 
+import com.hansotdosirak.honux.domain.Post;
+import com.hansotdosirak.honux.repository.PostJdbcRepository;
+import com.hansotdosirak.honux.repository.PostLockJpaRepository;
+import com.hansotdosirak.honux.repository.PostAtomicJpqlRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -11,33 +15,33 @@ import java.util.Optional;
 @Service
 public class PostService {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-    private final PostRepository postRepository;
-    private final PostLockRepository postLockRepository;
+    private final PostAtomicJpqlRepository postAtomicJpqlRepository;
+    private final PostLockJpaRepository postLockJpaRepository;
     private final PostJdbcRepository postJdbcRepository;
 
-    public PostService(PostRepository postRepository, PostLockRepository postLockRepository, PostJdbcRepository postJdbcRepository) {
-        this.postRepository = postRepository;
-        this.postLockRepository = postLockRepository;
+    public PostService(PostAtomicJpqlRepository postAtomicJpqlRepository, PostLockJpaRepository postLockJpaRepository, PostJdbcRepository postJdbcRepository) {
+        this.postAtomicJpqlRepository = postAtomicJpqlRepository;
+        this.postLockJpaRepository = postLockJpaRepository;
         this.postJdbcRepository = postJdbcRepository;
     }
 
     @Transactional
     public void updateLikeCountBaseLine(Long postId) {
-        Optional<Post> byId = postRepository.findById(postId);
+        Optional<Post> byId = postAtomicJpqlRepository.findById(postId);
         Post post = byId.get();
         post.likeCountUp();
     }
 
     @Transactional
     public void updateLikeCountV1LockOnly(Long postId) {
-        Optional<Post> byId = postLockRepository.findById(postId);
+        Optional<Post> byId = postLockJpaRepository.findById(postId);
         Post post = byId.get();
         post.likeCountUp();
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void updateLikeCountV2IsolationOnly(Long postId) {
-        Optional<Post> byId = postRepository.findById(postId);
+        Optional<Post> byId = postAtomicJpqlRepository.findById(postId);
         Post post = byId.get();
         post.likeCountUp();
     }

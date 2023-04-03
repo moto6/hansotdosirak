@@ -1,4 +1,4 @@
-package com.hansotdosirak.honux;
+package com.hansotdosirak.honux.domain;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

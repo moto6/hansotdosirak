@@ -1,5 +1,6 @@
-package com.hansotdosirak.honux;
+package com.hansotdosirak.honux.endpoint;
 
+import com.hansotdosirak.honux.service.PostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
