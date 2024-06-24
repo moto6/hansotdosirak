@@ -1,20 +1,20 @@
-# 나중에 정리해야할 
+#  간단 성능테스트
+
+## 사용법
+```shell
+make serve
+```
+- docker & docker-compose 기술을 사용하며, MacOS 14.4 환경에서 테스트되었습니다.
+
+
+
+
 ```text
 docker build -t dosirak-app -f ./asset/dosirak-infra/dosirak-app.dockerfile .
-
-
-
 docker-compose -f asset/dosirak-infra/docker-compose.yml up
-
-
 curl host.docker.internal:8080
-
-
 mysqladmin ping -h localhost:23306
-
-
 docker-compose up --build 
-
 docker-compose build --no-cache
 ```
 

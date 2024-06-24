@@ -13,7 +13,6 @@ class PostControllerTest {
     @Test
     public void run() {
         call();
-
         //given
         //when
         //then
