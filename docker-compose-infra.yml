@@ -1,0 +1,50 @@
+version: '3.8'
+services:
+
+
+  # mysql
+  mysql:
+    image: mysql:8.0
+    container_name: dosirak-mysql
+    platform: linux/arm64/v8
+    command:
+      - --default-authentication-plugin=mysql_native_password
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    restart: always
+    environment:
+      MYSQL_DATABASE: dosirak-mysql
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: tunamayo
+      MYSQL_PASSWORD: tunamayo
+      TZ: Asia/Seoul
+      MYSQL_MAX_CONNECTIONS: 1000
+      MYSQL_SSL_MODE: DISABLED
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "23306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 1GB
+        reservations:
+          cpus: '0.2'
+          memory: 1GB
+    healthcheck:
+      start_period: 5s
+      test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+      interval: 5s
+      timeout: 4s
+      retries: 200
+    networks:
+      - dosirak-network
+
+networks:
+  dosirak-network:
+
+volumes:
+  mysql-data:
